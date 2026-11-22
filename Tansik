@@ -1,0 +1,551 @@
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تنسيق القبول بالجامعات والمعاهد - نتيجة الترشيح</title>
+    <!-- استدعاء Tailwind CSS للتنسيق المتجاوب -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- استدعاء خط Cairo و Tajawal للوضوح والرسمية -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* إعدادات الخطوط والألوان الرسمية لموقع التنسيق المصري */
+        body {
+            font-family: 'Cairo', 'Tajawal', Tahoma, Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #111827;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        /* الهيدر الأزرق الداكن الرسمي */
+        .tansik-header {
+            background-color: #000b76;
+            color: #ffffff;
+            border-bottom: 3px solid #000647;
+        }
+
+        /* زر الطباعة الكلاسيكي المطابق للصورة */
+        .classic-print-btn {
+            background: linear-gradient(to bottom, #f2f2f2 0%, #dcdcdc 100%);
+            border: 1px solid #8c8c8c;
+            border-radius: 3px;
+            color: #000000;
+            font-weight: 700;
+            padding: 4px 18px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+            transition: all 0.15s ease;
+        }
+        .classic-print-btn:hover {
+            background: linear-gradient(to bottom, #e6e6e6 0%, #cccccc 100%);
+            border-color: #666666;
+        }
+        .classic-print-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* إطار اسم الطالب الرسمي */
+        .student-name-box {
+            border: 1px solid #6b7280;
+            background-color: #ffffff;
+            padding: 4px 10px;
+            min-height: 36px;
+        }
+
+        /* خط تحت جملة بطاقة الترشيح النهائية */
+        .official-underline {
+            border-bottom: 1px solid #374151;
+            padding-bottom: 3px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        /* تنسيق الملحوظات الهامة باللون الأحمر الداكن */
+        .important-notes {
+            color: #991b1b;
+            line-height: 1.65;
+        }
+
+        /* إعدادات الطباعة لإخفاء أزرار التنقل والإبقاء على الإخطار الرسمي فقط */
+        @media print {
+            body {
+                background-color: #ffffff !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            #card-container {
+                box-shadow: none !important;
+                border: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                max-width: 100% !important;
+                width: 100% !important;
+            }
+            .tansik-header {
+                background-color: #000b76 !important;
+                color: #ffffff !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- الشريط العلوي الرسمي -->
+    <header class="tansik-header w-full py-3 px-4 text-center shadow-md">
+        <div class="max-w-4xl mx-auto flex items-center justify-center relative">
+            <h1 id="header-title" class="text-xl sm:text-2xl font-bold tracking-wide">
+                نتيجة الترشيح
+            </h1>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="flex-grow flex flex-col items-center justify-start py-4 px-2 sm:px-4">
+
+        <!-- =========================================================
+             الشاشة الأولى: واجهة الاستعلام وتسجيل الدخول برقم الجلوس
+             ========================================================= -->
+        <section id="login-view" class="w-full max-w-lg bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden mt-4 sm:mt-8 transition-all">
+            <!-- ترويسة بطاقة الاستعلام -->
+            <div class="bg-slate-50 border-b border-gray-200 p-5 text-center">
+                <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-blue-900 text-white mb-3 shadow">
+                    <!-- أيقونة شعار التعليم العالي / التخرج -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                    </svg>
+                </div>
+                <h2 class="text-lg sm:text-xl font-extrabold text-blue-950">وزارة التعليم العالي والبحث العلمي</h2>
+                <p class="text-sm font-semibold text-gray-600 mt-1">مكتب تنسيق القبول بالجامعات والمعاهد</p>
+                <div class="mt-2 inline-block bg-blue-50 text-blue-900 text-xs font-bold px-3 py-1 rounded-full border border-blue-200">
+                    نتيجة تقليل الاغتراب - عام 2026 م
+                </div>
+            </div>
+
+            <!-- نموذج إدخال رقم الجلوس -->
+            <div class="p-6">
+                <form id="search-form" class="space-y-4" novalidate>
+                    <div>
+                        <label for="seat-number-input" class="block text-sm font-bold text-gray-800 mb-2">
+                            أدخل رقم الجلوس / الإيصال للاستعلام عن بطاقة الترشيح:
+                        </label>
+                        <div class="relative">
+                            <input 
+                                type="text" 
+                                id="seat-number-input" 
+                                inputmode="numeric"
+                                autocomplete="off"
+                                placeholder="رقم الجلوس" 
+                                class="w-full px-4 py-3 text-lg font-bold text-center tracking-widest border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-900 focus:ring-2 focus:ring-blue-900/20 transition-all"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- رسالة الخطأ في حالة إدخال رقم غير مسجل -->
+                    <div id="error-box" class="hidden bg-red-50 border-r-4 border-red-700 text-red-800 p-3.5 rounded-lg text-sm font-semibold flex items-start gap-2.5 animate-pulse">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-700 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                        <span id="error-message">عفواً، رقم الجلوس الذي أدخلته غير مسجل في قاعدة بيانات التنسيق.</span>
+                    </div>
+
+                    <button 
+                        type="submit" 
+                        class="w-full bg-[#000b76] hover:bg-blue-900 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 text-base cursor-pointer"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <span>عرض نتيجة الترشيح</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- تذييل البوابة -->
+            <div class="bg-gray-100 px-4 py-2.5 text-center border-t border-gray-200">
+                <p class="text-[11px] text-gray-500 font-semibold">بوابة الحكومة الإلكترونية - tansik.digital.gov.eg</p>
+            </div>
+        </section>
+
+
+        <!-- =========================================================
+             الشاشة الثانية: بطاقة الترشيح النهائية المطابقة للتصميم الرسمي
+             ========================================================= -->
+        <section id="result-view" class="hidden w-full max-w-2xl">
+            
+            <!-- شريط أدوات علوي للرجوع (يختفي عند الطباعة) -->
+            <div class="no-print flex items-center justify-between mb-3 px-1">
+                <button 
+                    type="button" 
+                    onclick="goBackToSearch()" 
+                    class="inline-flex items-center gap-1.5 bg-white hover:bg-gray-100 text-gray-800 font-bold text-xs sm:text-sm px-3.5 py-2 rounded-lg border border-gray-300 shadow-sm transition-all cursor-pointer"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                    <span>استعلام آخر</span>
+                </button>
+
+                <span class="text-xs text-gray-500 font-semibold hidden sm:inline">
+                    اضغط على "إطبع الإخطار" لحفظه كملف PDF أو طباعته
+                </span>
+            </div>
+
+            <!-- ورقة إخطار الترشيح الرسمية -->
+            <div id="card-container" class="bg-white shadow-md border border-gray-300 px-3 sm:px-6 py-4 mx-auto">
+                
+                <!-- زر إطبع الإخطار في المنتصف أعلى البطاقة -->
+                <div class="text-center mb-3">
+                    <button 
+                        type="button" 
+                        onclick="window.print()" 
+                        class="classic-print-btn text-sm sm:text-base cursor-pointer"
+                    >
+                        إطبع الإخطار
+                    </button>
+                </div>
+
+                <!-- ترويسة البطاقة الثلاثية: يمين (وزارة التعليم العالي) - وسط (بيانات البطاقة) - يسار (QR Code) -->
+                <div class="grid grid-cols-12 items-start gap-1 sm:gap-2 mb-3">
+                    
+                    <!-- اليمين: وزارة التعليم العالي -->
+                    <div class="col-span-4 text-center text-[11px] sm:text-sm font-bold text-gray-900 leading-snug pt-2">
+                        <p>وزارة التعليم العالي مكتب</p>
+                        <p>تنسيق القبول بالجامعات</p>
+                        <p>والمعاهد</p>
+                    </div>
+
+                    <!-- الوسط: عنوان نتيجة العام وبطاقة الترشيح -->
+                    <div class="col-span-5 text-center text-xs sm:text-base font-extrabold text-gray-900 leading-snug">
+                        <p>نتيجة</p>
+                        <p id="res-year">عام 2026 م</p>
+                        <p class="mt-0.5">بطاقة الترشيح النهائية بعد ظهور</p>
+                        <p>نتيجة برنامج تقليل الاغتراب</p>
+                        <p>(وتعتبر اي بطاقة سابقة لاغية)</p>
+                    </div>
+
+                    <!-- اليسار: كود QR المولد برمجياً -->
+                    <div class="col-span-3 flex justify-center sm:justify-end pt-1">
+                        <div class="p-1 bg-white border border-gray-200">
+                            <canvas id="qr-canvas" width="96" height="96" class="w-20 h-20 sm:w-24 sm:h-24 block"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- صف اسم الطالب داخل إطار مستطيل -->
+                <div class="flex items-center gap-2 mb-1.5">
+                    <span class="text-xs sm:text-sm font-bold text-gray-900 whitespace-nowrap">الطالب :</span>
+                    <div class="student-name-box flex-grow text-center">
+                        <span id="res-student-name" class="text-sm sm:text-base font-extrabold text-gray-950"></span>
+                    </div>
+                </div>
+
+                <!-- السطر الذي تحته خط -->
+                <div class="text-center mb-2">
+                    <p class="official-underline text-[11px] sm:text-xs font-bold text-gray-900">
+                        بطاقة الترشيح النهائية بعد ظهور نتيجة برنامج تقليل الاغتراب (وتعتبر اي بطاقة سابقة لاغية)
+                    </p>
+                </div>
+
+                <!-- عبارة يتشرف مكتب التنسيق -->
+                <div class="text-center mb-4">
+                    <p class="text-xs sm:text-sm font-semibold text-gray-800 tracking-wide">
+                        يتشرف مكتب التنسيق باخطاركم بأنه قد تم ترشيحكم
+                    </p>
+                </div>
+
+                <!-- جدول البيانات التفصيلية للترشيح -->
+                <div class="space-y-3 text-xs sm:text-sm mb-5 px-1 sm:px-2">
+                    
+                    <!-- الكلية / المعهد -->
+                    <div class="grid grid-cols-12 items-center gap-2 py-1">
+                        <div class="col-span-4 sm:col-span-3 font-bold text-gray-900 text-right">
+                            الكلية / المعهد:
+                        </div>
+                        <div class="col-span-8 sm:col-span-9 text-center font-extrabold text-gray-950 text-sm sm:text-base leading-relaxed">
+                            <span id="res-college"></span>
+                        </div>
+                    </div>
+
+                    <!-- ترتيب الرغبة -->
+                    <div class="grid grid-cols-12 items-center gap-2">
+                        <div class="col-span-5 sm:col-span-4 font-bold text-gray-900 text-right">
+                            ترتيب الرغبة :
+                        </div>
+                        <div class="col-span-7 sm:col-span-8 text-center font-bold text-gray-900">
+                            <span id="res-wish-order"></span>
+                        </div>
+                    </div>
+
+                    <!-- رقم الجلوس / الإيصال -->
+                    <div class="grid grid-cols-12 items-center gap-2">
+                        <div class="col-span-5 sm:col-span-4 font-bold text-gray-900 text-right">
+                            رقم الجلوس/الإيصال:
+                        </div>
+                        <div class="col-span-7 sm:col-span-8 text-center font-bold text-gray-900">
+                            <span id="res-seat-number"></span>
+                        </div>
+                    </div>
+
+                    <!-- مجموع الدرجات -->
+                    <div class="grid grid-cols-12 items-center gap-2">
+                        <div class="col-span-5 sm:col-span-4 font-bold text-gray-900 text-right">
+                            مجموع الدرجات:
+                        </div>
+                        <div class="col-span-7 sm:col-span-8 text-center font-bold text-gray-900">
+                            <span id="res-total-score"></span>
+                        </div>
+                    </div>
+
+                    <!-- الشهادة -->
+                    <div class="grid grid-cols-12 items-center gap-2">
+                        <div class="col-span-4 sm:col-span-4 font-bold text-gray-900 text-right">
+                            الشهادة:
+                        </div>
+                        <div class="col-span-8 sm:col-span-8 text-center font-semibold text-gray-900">
+                            <span id="res-certificate"></span>
+                        </div>
+                    </div>
+
+                    <!-- تاريخ إعلان النتيجة -->
+                    <div class="grid grid-cols-12 items-center gap-2">
+                        <div class="col-span-5 sm:col-span-4 font-bold text-gray-900 text-right">
+                            تاريخ اعلان النتيجة:
+                        </div>
+                        <div class="col-span-7 sm:col-span-8 text-center font-bold text-gray-900" dir="ltr">
+                            <span id="res-announcement-date"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- قسم الملحوظات الهامة باللون الأحمر الداكن المطابق للصورة -->
+                <div class="important-notes text-[11px] sm:text-xs font-bold space-y-1.5 pt-2 border-t border-gray-100">
+                    <p class="font-extrabold text-xs sm:text-sm mb-1">ملحوظات هامة</p>
+                    <p>
+                        الترشيح أعلاه تم بناء على الشهادة الدراسية المقدمة من الطالب الى مكتب التنسيق ويتم الغاء الترشيح واتخاذ الإجراءات اذا وجد خطأ أو تعديل علي درجات الطالب أو في حالة ثبوت ما يخالف ما ورد بالاوراق المسلمة من الطالب الي مكتب تنسيق القبول بالجامعات.
+                    </p>
+                    <p>
+                        - في حالة استنفاذ الطالب سيتم فتح التقديم مع المراحل التالية
+                    </p>
+                    <p>
+                        - هذه الصفحة مجرد اخطار الطالب بالكلية أو (المعهد ) التي رشح لها ، أو حال استنفاذ الرغبات ولا تعتبر مستنداً لقيد الطالب بها وعلى الطالب المرشح فقط سرعة التوجه الى الكلية أو المعهد لإتمام أجراءات القيد خلال خمسة عشر يوماً من تاريخ إعلان النتيجة
+                    </p>
+                    <p>
+                        - على الطالب المرشح فقط ضرورة طبع الاخطار لاستكمال الإجراءات
+                    </p>
+                    <p>
+                        - في حالة وجود إختلاف في بيانات الطالب(رقم الجلوس أو المجموع او الشعبة) لا يعتد بالإخطار وعلى الطالب الرجوع لمكتب التنسيق الرئيسي او الاتصال على 19468 فوراً.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- البرمجة والتفاعلية -->
+    <script>
+        /**
+         * قاعدة البيانات الحصرية للطالبين المسجلين في النظام
+         */
+        const STUDENTS_DATABASE = {
+            "2269436": {
+                seatNumber: "2269436",
+                name: "يوسف شريف محمد فهمي الشهالي",
+                college: "المعهد العالى للادارة بالمحله الكبرى (شعبة محاسبة - إدارة اعمال - نظم معلومات)",
+                wishOrder: "13",
+                totalScore: "178.5",
+                certificate: "الثانوية العامة - ثانوية عامة علمي رياضة",
+                announcementDate: "2026-11-21",
+                year: "عام 2026 م"
+            },
+            "2269451": {
+                seatNumber: "2269451",
+                name: "معاذ علي عبده محمود النعماني",
+                college: "المعهد العالى للادارة بالمحله الكبرى (شعبة محاسبة - إدارة اعمال - نظم معلومات)",
+                wishOrder: "9",
+                totalScore: "177.5",
+                certificate: "الثانوية العامة - ثانوية عامة علمي رياضة",
+                announcementDate: "2026-11-21",
+                year: "عام 2026 م"
+            }
+        };
+
+        // عناصر واجهة المستخدم
+        const loginView = document.getElementById('login-view');
+        const resultView = document.getElementById('result-view');
+        const searchForm = document.getElementById('search-form');
+        const seatInput = document.getElementById('seat-number-input');
+        const errorBox = document.getElementById('error-box');
+        const errorMessage = document.getElementById('error-message');
+
+        /**
+         * تحويل الأرقام العربية الشرقية (٠١٢٣...) إلى أرقام إنجليزية (0123...) لتسهيل الإدخال من أي لوحة مفاتيح
+         */
+        function normalizeDigits(str) {
+            return str.replace(/[٠-٩]/g, d => '0123456789'['٠١٢٣٤٥٦٧٨٩'.indexOf(d)]).trim();
+        }
+
+        /**
+         * دالة لتوليد مصفوفة QR Code واقعية وفريدة بناءً على بيانات الطالب (رقم الجلوس واسم الطالب)
+         * ترسم مربعات التحديد الثلاثة القياسية (Finder Patterns) ونمط البيانات المشفر
+         */
+        function renderStudentQRCode(seedText) {
+            const canvas = document.getElementById('qr-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const size = canvas.width;
+            const modules = 25; // شبكة 25x25 وحدة قياسية
+            const cellSize = size / modules;
+
+            // خلفية بيضاء نقية
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, size, size);
+
+            // دالة مساعدة لرسم مربع تحديد QR (7x7 وحدات)
+            function drawFinderPattern(startX, startY) {
+                ctx.fillStyle = '#000000';
+                ctx.fillRect(startX * cellSize, startY * cellSize, 7 * cellSize, 7 * cellSize);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect((startX + 1) * cellSize, (startY + 1) * cellSize, 5 * cellSize, 5 * cellSize);
+                ctx.fillStyle = '#000000';
+                ctx.fillRect((startX + 2) * cellSize, (startY + 2) * cellSize, 3 * cellSize, 3 * cellSize);
+            }
+
+            // رسم مربعات التحديد الثلاثة (أعلى اليمين، أعلى اليسار، أسفل اليسار)
+            drawFinderPattern(0, 0);
+            drawFinderPattern(modules - 7, 0);
+            drawFinderPattern(0, modules - 7);
+
+            // توليد بذرة رقمية ثابتة من نص الطالب لضمان ثبات الكود لنفس الطالب واختلافه بين الطالبين
+            let hash = 2166136261;
+            for (let i = 0; i < seedText.length; i++) {
+                hash ^= seedText.charCodeAt(i);
+                hash = Math.imul(hash, 16777619);
+            }
+
+            // مولد عشوائي حتمي (PRNG)
+            function nextRandom() {
+                hash += 0x6D2B79F5;
+                let t = Math.imul(hash ^ (hash >>> 15), 1 | hash);
+                t ^= t + Math.imul(t ^ (t >>> 7), 61 | t);
+                return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+            }
+
+            // ملء باقي الخلايا بنمط QR واقعي مع ترك مسافة أمان حول مربعات التحديد
+            ctx.fillStyle = '#000000';
+            for (let row = 0; row < modules; row++) {
+                for (let col = 0; col < modules; col++) {
+                    // تجنب مناطق مربعات التحديد الثلاثة + المسافة الفاصلة (8x8)
+                    const inTopLeft = (row < 8 && col < 8);
+                    const inTopRight = (row < 8 && col >= modules - 8);
+                    const inBottomLeft = (row >= modules - 8 && col < 8);
+
+                    if (inTopLeft || inTopRight || inBottomLeft) continue;
+
+                    // إضافة خطوط التوقيت القياسية في الصف 6 والعمود 6
+                    if (row === 6 || col === 6) {
+                        if ((row + col) % 2 === 0) {
+                            ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+                        }
+                        continue;
+                    }
+
+                    // رسم وحدات البيانات
+                    if (nextRandom() > 0.48) {
+                        ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
+                    }
+                }
+            }
+        }
+
+        /**
+         * عرض بطاقة الترشيح للطالب المحدد
+         */
+        function displayStudentCard(student) {
+            try {
+                // تعبئة البيانات في الحقول
+                document.getElementById('res-year').textContent = student.year;
+                document.getElementById('res-student-name').textContent = student.name;
+                document.getElementById('res-college').textContent = student.college;
+                document.getElementById('res-wish-order').textContent = student.wishOrder;
+                document.getElementById('res-seat-number').textContent = student.seatNumber;
+                document.getElementById('res-total-score').textContent = student.totalScore;
+                document.getElementById('res-certificate').textContent = student.certificate;
+                document.getElementById('res-announcement-date').textContent = student.announcementDate;
+
+                // توليد كود QR الخاص بالطالب
+                renderStudentQRCode(`${student.seatNumber}-${student.name}-${student.totalScore}`);
+
+                // التبديل بين الشاشات
+                errorBox.classList.add('hidden');
+                loginView.classList.add('hidden');
+                resultView.classList.remove('hidden');
+
+                // الصعود لأعلى الصفحة بسلاسة
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } catch (err) {
+                console.error("خطأ أثناء عرض النتيجة:", err);
+            }
+        }
+
+        /**
+         * البحث عن الطالب برقم الجلوس
+         */
+        function searchStudentBySeat(rawSeat) {
+            const cleanSeat = normalizeDigits(rawSeat);
+
+            if (!cleanSeat) {
+                errorMessage.textContent = "يرجى إدخال رقم الجلوس أولاً.";
+                errorBox.classList.remove('hidden');
+                seatInput.focus();
+                return;
+            }
+
+            const student = STUDENTS_DATABASE[cleanSeat];
+
+            if (student) {
+                displayStudentCard(student);
+            } else {
+                errorMessage.textContent = `عفواً، رقم الجلوس (${cleanSeat}) غير مسجل في قاعدة بيانات التنسيق. يرجى التأكد من الرقم والمحاولة مرة أخرى.`;
+                errorBox.classList.remove('hidden');
+                seatInput.focus();
+            }
+        }
+
+        /**
+         * الرجوع إلى شاشة الاستعلام
+         */
+        function goBackToSearch() {
+            resultView.classList.add('hidden');
+            loginView.classList.remove('hidden');
+            errorBox.classList.add('hidden');
+            seatInput.value = '';
+            seatInput.focus();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // الاستماع لحدث إرسال النموذج
+        searchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            searchStudentBySeat(seatInput.value);
+        });
+
+        // إخفاء رسالة الخطأ بمجرد بدء المستخدم في تعديل الرقم
+        seatInput.addEventListener('input', function() {
+            if (!errorBox.classList.contains('hidden')) {
+                errorBox.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
+```
